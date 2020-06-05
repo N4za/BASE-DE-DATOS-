@@ -8,26 +8,25 @@ import 'select.dart';
 import 'students.dart';
 import 'dart:async';
 
-void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      darkTheme: ThemeData(brightness: Brightness.light, primarySwatch: Colors.yellow),
-      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.yellow),
-      home: homePage(),
+      darkTheme: ThemeData(brightness: Brightness.light, primarySwatch: Colors.blue),
+      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.blue),
+      home: Search(),
     );
   }
 }
 
-class homePage extends StatefulWidget {
+class Delete extends StatefulWidget {
   @override
-  _myHomePageState createState() => new _myHomePageState();
+  _myDelete createState() => new _myDelete();
 }
 
-class _myHomePageState extends State<homePage> {
-  // VAR MANEJO BD
+class _myDelete extends State<Delete> {
+
   Future<List<Student>> Students;
   TextEditingController controller1 = TextEditingController();
   TextEditingController controller2 = TextEditingController();
@@ -45,6 +44,8 @@ class _myHomePageState extends State<homePage> {
   String matricula;
 
   final formkey = new GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   var dbHelper;
   bool isUpdating;
 
@@ -90,12 +91,15 @@ class _myHomePageState extends State<homePage> {
     }
   }
 
-  // SHOW DATA
+
   SingleChildScrollView dataTable(List<Student> Students) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
         columns: [
+          DataColumn(
+            label: Text("Delete."),
+          ),
           DataColumn(
             label: Text("Nombre."),
           ),
@@ -105,7 +109,6 @@ class _myHomePageState extends State<homePage> {
           DataColumn(
             label: Text("Apellido Materno."),
           ),
-
           DataColumn(
             label: Text("Telefono."),
           ),
@@ -117,6 +120,22 @@ class _myHomePageState extends State<homePage> {
           ),
         ],
         rows: Students.map((student) => DataRow(cells: [
+          DataCell(
+            IconButton(
+              icon: Icon(Icons.delete),
+              color: Colors.white,
+              onPressed: () {
+                dbHelper.delete(student.controlnum);
+                final snackBar=SnackBar(
+                  backgroundColor: Colors.black12,
+                  content: Text('Eliminado'),
+                );
+                _scaffoldKey.currentState.showSnackBar(snackBar);
+                refreshList();
+              },
+            ),
+          ),
+
           DataCell(Text(student.name.toString().toUpperCase()), onTap: () {
             setState(() {
               isUpdating = true;
@@ -132,12 +151,12 @@ class _myHomePageState extends State<homePage> {
             controller2.text = student.appP;
           }),
 
-          DataCell(Text(student.appM.toString().toUpperCase()), onTap: () {
+          DataCell(Text(student.appP.toString().toUpperCase()), onTap: () {
             setState(() {
               isUpdating = true;
               currentUserId = student.controlnum;
             });
-            controller3.text = student.appM;
+            controller3.text = student.appP;
           }),
 
           DataCell(Text(student.telef.toString().toUpperCase()), onTap: () {
@@ -189,6 +208,7 @@ class _myHomePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key:_scaffoldKey,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -238,8 +258,8 @@ class _myHomePageState extends State<homePage> {
         ),
       ),
       appBar: new AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        title: Text('SQLite'),
+        backgroundColor: Colors.blueAccent,
+        title: Text('Eliminar'),
       ),
       body: new Container(
         child: Column(

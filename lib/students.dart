@@ -1,28 +1,33 @@
 class Student{
-  int controlum;
+  int controlnum;
   String name;
-  String surname;
-  String mail;
-  String num;
-  String matri;
-  Student(this.controlum, this.name, this.surname, this.mail, this.num, this.matri);
+  String appP;
+  String appM;
+  String telef;
+  String correo;
+  String matricula;
+
+  Student (this.controlnum, this.name, this.appP, this.appM, this.telef, this.correo, this.matricula);
   Map<String,dynamic>toMap(){
     var map = <String,dynamic>{
-      'controlum':controlum,
-      'name':name,
-      'surname':surname,
-      'mail':mail,
-      'num':num,
-      'matri': matri
+      'controlnum': controlnum,
+      'name': name,
+      'app': appP,
+      'appP': appM,
+      'telef': telef,
+      'correo': correo,
+      'matricula': matricula,
     };
     return map;
   }
-  Student.fromMap(Map<String,dynamic> map){
-    controlum=map['controlum'];
-    name=map['name'];
-    surname=map['surname'];
-    mail=map['mail'];
-    num=map['num'];
-    matri=map['matri'];
+
+  Student.fromMap(Map<String, dynamic>map){
+    controlnum = map['controlnum'];
+    name = map['name'];
+    appP = map['appP'];
+    appM = map['appM'];
+    telef = map['telef'];
+    correo = map['correo'];
+    matricula = map['matricula'];
   }
 }

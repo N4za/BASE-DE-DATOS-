@@ -8,25 +8,24 @@ import 'select.dart';
 import 'students.dart';
 import 'dart:async';
 
-void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      darkTheme: ThemeData(brightness: Brightness.light, primarySwatch: Colors.yellow),
-      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.yellow),
-      home: homePage(),
+      darkTheme: ThemeData(brightness: Brightness.light, primarySwatch: Colors.blue),
+      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.blue),
+      home: Search(),
     );
   }
 }
 
-class homePage extends StatefulWidget {
+class Update extends StatefulWidget {
   @override
-  _myHomePageState createState() => new _myHomePageState();
+  _myUpdate createState() => new _myUpdate();
 }
 
-class _myHomePageState extends State<homePage> {
+class _myUpdate extends State<Update> {
   // VAR MANEJO BD
   Future<List<Student>> Students;
   TextEditingController controller1 = TextEditingController();
@@ -90,7 +89,6 @@ class _myHomePageState extends State<homePage> {
     }
   }
 
-  // SHOW DATA
   SingleChildScrollView dataTable(List<Student> Students) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -105,7 +103,6 @@ class _myHomePageState extends State<homePage> {
           DataColumn(
             label: Text("Apellido Materno."),
           ),
-
           DataColumn(
             label: Text("Telefono."),
           ),
@@ -116,55 +113,60 @@ class _myHomePageState extends State<homePage> {
             label: Text("Matricula."),
           ),
         ],
-        rows: Students.map((student) => DataRow(cells: [
-          DataCell(Text(student.name.toString().toUpperCase()), onTap: () {
-            setState(() {
-              isUpdating = true;
-              currentUserId = student.controlnum;
-            });
-            controller1.text = student.name;
-          }),
-          DataCell(Text(student.appP.toString().toUpperCase()), onTap: () {
-            setState(() {
-              isUpdating = true;
-              currentUserId = student.controlnum;
-            });
-            controller2.text = student.appP;
-          }),
+        rows: Students.map((student) =>
+            DataRow(
+                selected: true,
+                cells: [
 
-          DataCell(Text(student.appM.toString().toUpperCase()), onTap: () {
-            setState(() {
-              isUpdating = true;
-              currentUserId = student.controlnum;
-            });
-            controller3.text = student.appM;
-          }),
+                  DataCell(Text(student.name.toString().toUpperCase()),
+                      onTap: () {
+                        setState(() {
+                          isUpdating = true;
+                          currentUserId = student.controlnum;
+                        });
+                        controller1.text = student.name;
+                      }),
+                  DataCell(Text(student.appP.toString().toUpperCase()), onTap: () {
+                    setState(() {
+                      isUpdating = true;
+                      currentUserId = student.controlnum;
+                    });
+                    controller2.text = student.appP;
+                  }),
 
-          DataCell(Text(student.telef.toString().toUpperCase()), onTap: () {
-            setState(() {
-              isUpdating = true;
-              currentUserId = student.controlnum;
-            });
-            controller4.text = student.telef;
-          }),
+                  DataCell(Text(student.appM.toString().toUpperCase()), onTap: () {
+                    setState(() {
+                      isUpdating = true;
+                      currentUserId = student.controlnum;
+                    });
+                    controller3.text = student.appM;
+                  }),
 
-          DataCell(Text(student.correo.toString().toUpperCase()), onTap: () {
-            setState(() {
-              isUpdating = true;
-              currentUserId = student.controlnum;
-            });
-            controller5.text = student.correo;
-          }),
+                  DataCell(Text(student.telef.toString().toUpperCase()), onTap: () {
+                    setState(() {
+                      isUpdating = true;
+                      currentUserId = student.controlnum;
+                    });
+                    controller4.text = student.telef;
+                  }),
 
-          DataCell(Text(student.matricula.toString().toUpperCase()), onTap: () {
-            setState(() {
-              isUpdating = true;
-              currentUserId = student.controlnum;
-            });
-            controller6.text = student.matricula;
-          }),
+                  DataCell(Text(student.correo.toString().toUpperCase()), onTap: () {
+                    setState(() {
+                      isUpdating = true;
+                      currentUserId = student.controlnum;
+                    });
+                    controller5.text = student.correo;
+                  }),
 
-        ])).toList(),
+                  DataCell(Text(student.matricula.toString().toUpperCase()), onTap: () {
+                    setState(() {
+                      isUpdating = true;
+                      currentUserId = student.controlnum;
+                    });
+                    controller6.text = student.matricula;
+                  }),
+
+                ])).toList(),
       ),
     );
   }
@@ -194,7 +196,7 @@ class _myHomePageState extends State<homePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('MENU',
+              child: Text('MENU,',
                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
               ),
               decoration: BoxDecoration(
@@ -238,8 +240,8 @@ class _myHomePageState extends State<homePage> {
         ),
       ),
       appBar: new AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        title: Text('SQLite'),
+        backgroundColor: Colors.blueAccent,
+        title: Text('Actualizado'),
       ),
       body: new Container(
         child: Column(
