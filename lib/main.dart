@@ -7,6 +7,7 @@ import 'delete.dart';
 import 'select.dart';
 import 'students.dart';
 import 'dart:async';
+import 'busqueda.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,12 +39,14 @@ class _myHomePageState extends State<homePage> {
 
   int currentUserId;
   String name;
+  String photoName;
   String appP;
   String appM;
   String telef;
   String correo;
   String matricula;
-
+  int currentUserId;
+  
   final formkey = new GlobalKey<FormState>();
   var dbHelper;
   bool isUpdating;
